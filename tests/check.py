@@ -1,8 +1,6 @@
 from subprocess import run
 from subprocess import PIPE
 from xml.dom import minidom
-from tabulate import tabulate
-
 
 # executes a shell command
 def execute(cmd=[], shell=False, timeout=10):
@@ -19,7 +17,10 @@ def read(filename):
 
 # creates a pretty result report
 def create_report(table):
-    return tabulate(table, headers=['Exercise', 'Grade', 'Message'])
+    result = ''
+    for (name, grade, status) in table:
+        result += '%24s: %6s [ %2d ]\n' % (name, status, grade)
+    return result.rstrip()
 
 
 # checks ex0.circ
